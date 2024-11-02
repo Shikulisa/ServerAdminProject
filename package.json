@@ -8,7 +8,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "This project involves hosting a web application on a cloud provider, configuring DNS infromation and an SSL certificate for it.",
   "dependencies": {
     "auth_backend": "file:",
     "bcryptjs": "^2.4.3",
