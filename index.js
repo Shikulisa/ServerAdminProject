@@ -8,13 +8,7 @@ const app = express();
 
 const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
 
-app.use(cors(
-    {
-        origin: baseUrl,
-        methods: ['GET', 'POST'],
-        credentials: true
-    }
-));
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
