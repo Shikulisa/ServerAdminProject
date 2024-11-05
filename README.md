@@ -13,6 +13,11 @@ git clone https://github.com/Fidelisaboke/ServerAdminProject.git
 cd ServerAdminProject
 ```
 
+- Create the `.env` file:
+```bash
+cp .env.example .env
+```
+
 - Install Node dependencies:
 ```bash
 npm install

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
@@ -5,7 +6,16 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 
-app.use(cors());
+const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
+
+app.use(cors(
+    {
+        origin: baseUrl,
+        methods: ['GET', 'POST'],
+        credentials: true
+    }
+));
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -13,10 +23,10 @@ const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'serveradminproject'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 db.connect(err => {
@@ -31,7 +41,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
 
-app.post('/signup', (req, res) => {
+app.post(`${baseUrl}/signup`, (req, res) => {
     const { email, password } = req.body;
     const query = 'INSERT INTO users (email, password) VALUES (?, ?)';
     db.query(query, [email, password], (err, result) => {
@@ -44,7 +54,7 @@ app.post('/signup', (req, res) => {
     });
 });
 
-app.post('/login', (req, res) => {
+app.post(`${baseUrl}/login`, (req, res) => {
     const { email, password } = req.body;
     const query = 'SELECT * FROM users WHERE email = ? AND password = ?';
     db.query(query, [email, password], (err, results) => {
