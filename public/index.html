@@ -90,6 +90,8 @@
     </div>
 
     <script>
+        const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
+
         // Signup Form Submission
         document.getElementById('signupForm').addEventListener('submit', async (event) => {
             event.preventDefault(); // Prevent the default form submission
@@ -97,7 +99,7 @@
             const password = document.getElementById('password').value;
 
             try {
-                const response = await fetch('http://localhost:3000/signup', {
+                const response = await fetch(`${baseUrl}/signup`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -119,7 +121,7 @@
             const password = document.getElementById('loginPassword').value;
 
             try {
-                const response = await fetch('http://localhost:3000/login', {
+                const response = await fetch(`${baseUrl}/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

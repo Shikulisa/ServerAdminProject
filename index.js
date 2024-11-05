@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
 
-app.post(`${baseUrl}/signup`, (req, res) => {
+app.post('/signup', (req, res) => {
     const { email, password } = req.body;
     const query = 'INSERT INTO users (email, password) VALUES (?, ?)';
     db.query(query, [email, password], (err, result) => {
@@ -54,7 +54,7 @@ app.post(`${baseUrl}/signup`, (req, res) => {
     });
 });
 
-app.post(`${baseUrl}/login`, (req, res) => {
+app.post('/login', (req, res) => {
     const { email, password } = req.body;
     const query = 'SELECT * FROM users WHERE email = ? AND password = ?';
     db.query(query, [email, password], (err, results) => {
