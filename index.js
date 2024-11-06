@@ -6,8 +6,6 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 
-const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
-
 app.use(cors());
 
 app.use(bodyParser.json());
@@ -16,19 +14,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
+    connectionLimit: 10,
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
-});
-
-db.connect(err => {
-    if (err) {
-        console.error('Database connection failed:', err);
-        return;
-    }
-    console.log('Connected to the database');
 });
 
 app.get('/', (req, res) => {
