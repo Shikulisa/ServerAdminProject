@@ -1,3 +1,5 @@
+import './auth.js';
+
 const navbarMenu = document.querySelector(".navbar .links");
 const hamburgerBtn = document.querySelector(".hamburger-btn");
 const hideMenuBtn = navbarMenu.querySelector(".close-btn");
