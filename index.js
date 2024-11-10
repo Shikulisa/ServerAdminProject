@@ -22,6 +22,15 @@ const db = mysql.createPool({
     database: process.env.DB_NAME
 });
 
+db.getConnection((err, connection) => {
+    if (err) {
+        console.error('Error connecting to the database:', err);
+        return;
+    }
+    console.log('Connected to the database');
+    connection.release();
+});
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
