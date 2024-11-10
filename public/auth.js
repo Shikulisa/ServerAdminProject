@@ -1,7 +1,4 @@
-
-require('dotenv').config();
-
-const baseUrl = process.env.BASE_URL;
+const baseUrl = "https://learnserveradmin.site"
 
 // Signup Form Submission
 document.getElementById('signupForm').addEventListener('submit', async (event) => {
