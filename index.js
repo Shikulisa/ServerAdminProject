@@ -71,5 +71,6 @@ app.post('/login', (req, res) => {
             } else {
                 res.status(401).send('Invalid email or password');
             }
+        }
     });
 });
