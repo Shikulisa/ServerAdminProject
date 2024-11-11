@@ -57,19 +57,20 @@ app.post('/signup', async (req, res) => {
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
-    const query = 'SELECT * FROM users WHERE email = ? AND password = ?';
-    db.query(query, [email, password], async (err, results) => {
+    const query = 'SELECT * FROM users WHERE email = ?';
+    
+    db.query(query, [email], async (err, results) => {
         if (err) {
             console.error(err);
             res.status(500).send('Server error');
         } else if (results.length === 0) {
-            res.status(401).send('Invalid email or password');
+            res.status(401).send('Invalid email or password.');
         } else {
             const isPasswordCorrect = await bcrypt.compare(password, results[0].password);
             if (isPasswordCorrect) {
                 res.status(200).send('Login successful');
             } else {
-                res.status(401).send('Invalid email or password');
+                res.status(401).send('Invalid password, try again.');
             }
         }
     });
