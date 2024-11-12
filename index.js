@@ -44,14 +44,14 @@ app.post('/signup', async (req, res) => {
         db.query(query, [email, hashedPassword], (err, result) => {
             if (err) {
                 console.error(err);
-                res.status(500).send('Server error');
+                res.status(500).send(err.sqlMessage);
             } else {
                 res.status(200).send('User registered successfully');
             }
         });
     } catch(err){
         console.error(err);
-        res.status(500).send('Server error');
+        res.status(500).send(err);
     }
 });
 
@@ -62,7 +62,7 @@ app.post('/login', (req, res) => {
     db.query(query, [email], async (err, results) => {
         if (err) {
             console.error(err);
-            res.status(500).send('Server error');
+            res.status(500).send(err.sqlMessage);
         } else if (results.length === 0) {
             res.status(401).send('Invalid email or password.');
         } else {
